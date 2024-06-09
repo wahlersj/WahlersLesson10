@@ -1,0 +1,42 @@
+class Account
+  attr_accessor :balance, :name, :transactions
+
+  def initialize(name)
+    self.name = name
+    self.balance = 0.0
+    self.transactions = []
+  end
+
+  def deposit(who,amt)
+    self.transactions << { action: :deposit, who: who, amount: amt }
+    self.balance += amt
+  end
+
+  def withdraw(who,amt)
+    self.transactions << { action: :withdrawal, who: who, amount: amt }
+    self.balance -= amt
+  end
+
+end
+
+class Parser
+  def self.evaluate
+    accounts = {}
+    File.open("transactions.txt").each_line do |line|
+      /^(?<name>\w+\s\w+)\s(?<action>deposited|withdrew)\s\$(?<amount>\d+.\d\d)\s(?<direction>into|from)\s(?<account>[\w\s\d]+)$/ =~ line
+
+      accounts[account] ||= Account.new(account)
+      case action
+      when "deposited"
+        accounts[account].deposit(name,amount.to_f)
+      when "withdrew"
+        accounts[account].withdraw(name,amount.to_f)
+      end
+    end
+
+    puts "Balances:"
+    accounts.each_key{|k| puts "#{accounts[k].name} - $#{accounts[k].balance}" }
+  end
+end
+
+Parser.evaluate
