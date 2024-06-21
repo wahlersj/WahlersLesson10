@@ -2,9 +2,13 @@
 #CSC 330 - Lesson 10
 #Assignment 5
 
+#This is my main class for the library system I created
+
+#Here I am importing Java tools
 import java.util.ArrayList;
 import java.util.Scanner;
 
+#Here I am setting up the main class
 public class Main {
     public static void main(String[] args) {
         PublicLibrary library = new PublicLibrary();
