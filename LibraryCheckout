@@ -3,74 +3,76 @@
 #Assignment 5
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
-private final String name;
-    private final Book[] books = new Book[3];//you can see I'm limiting them to 3 books
-    private int index = 0;
+public class LibraryManager {
+    private List<Book> books = new ArrayList<>();
 
-public class Library 
-{
-	Scanner input = new Scanner(System.in);
-	private String first; 
-	private String last; 
-	int books = 0;
-	
-	public Library(String f, String l)
-	{
-		first = f; 
-		last = l; 
-	}
-	
-	public String toString()
-	{
-		return first + " " + last; 
-	}
-	
-	public String getName() 
-	{
-		return first +  " " + last; 
-	}
+    public void searchBooks(String query) {
+        List<Book> foundBooks = books.stream()
+                .filter(book -> book.getTitle().toLowerCase().contains(query.toLowerCase())
+                .collect(Collectors.toList());
+        if (foundBooks.isEmpty()) {
+            System.out.println("Title is not found.");
+        } else {
+            foundBooks.forEach(System.out::println);
+        }
+    }
 
+    public void CheckingOut(int id) {
+        books.stream()
+             .filter(book -> book.getId() == id && !book.isBorrowed())
+             .findFirst()
+             .ifPresentOrElse(book -> {
+                 book.setBorrowed(true);
+                 System.out.println("Book checked out successfully!");
+             }, () -> System.out.println("Book is not available."));
+    }
 
-	public static void CheckingIn()
-	{
-		System.out.println("Enter book title to be checked in: ");
+    public void CheckingIn(int id) {
+        books.stream()
+             .filter(book -> book.getId() == id && book.isBorrowed())
+             .findFirst()
+             .ifPresentOrElse(book -> {
+                 book.setBorrowed(false);
+                 System.out.println("Book is now checked in");}
+    }
 
-		Scanner input = new Scanner(System.in);
+    private Book BookDetails(Scanner scanner) {
+        System.out.print("Please enter Book Title: ");
+        String title = scanner.nextLine();
 
-		String CheckIn = input.next(); 
-		
-		if(Library.BookList.contains(CheckIn))
+        return new Book(id, title, author);
+    }
+
+    public void start() {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("\nLibrary Management System");
+            System.out.println("1. Check Out Book");
+            System.out.println("2. Check In Book");
+            System.out.println("3. Exit");
+            System.out.print("Enter your choice: ");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine();
 		{
-			Library.BookList.add(CheckIn);
-
-			System.out.println(CheckIn + " is now checked in.");	
-
-			else 
-
-			System.out.println(CheckOut + " Wrong Title")
-
-		}
-
-	public static void CheckingOut()
-	{
-		System.out.println("What book would you like to checkout: ");
-
-		Scanner input = new Scanner(System.in);
-
-		String CheckOut = input.next(); 
-
-		if(Library.BookList.contains(CheckOut))
-		
-		{
-		
-			System.out.println(CheckOut + " is now checked out")
-
-			else 
-
-			System.out.println(CheckOut + "Wrong Title");
-		
-	}
-
+                case 1:
+                    System.out.print("Enter Book ID to check out: ");
+                    id = scanner.nextInt();
+                    checkOutBook(id);
+                    break;
+                case 2:
+                    System.out.print("Enter Book ID to check in: ");
+                    id = scanner.nextInt();
+                    checkInBook(id);
+                    break;
+                case 3:
+                    System.out.println("Exiting...");
+                    return;
+            }
+        }
+    }
 }
