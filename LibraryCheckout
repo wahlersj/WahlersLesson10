@@ -2,11 +2,15 @@
 #CSC 330 - Lesson 10
 #Assignment 5
 
+#Here is my Library Checkout and Checkin System
+
+#Below I am inserting Java tools
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+#I am setting up the library class for the books
 public class PublicLibrary {
     private List<Book> books = new ArrayList<>();
 
@@ -21,6 +25,7 @@ public class PublicLibrary {
         }
     }
 
+#This is the checking in class that sets up for checking in books
    public void CheckingIn(int id) {
         books.stream()
              .findFirst()
@@ -28,6 +33,8 @@ public class PublicLibrary {
                  book.setBorrowed(false);
                  System.out.println("Book is now checked in.");}
     }
+
+#This is the checking out class that sets it up for checking books out
     public void CheckingOut(int id) {
         books.stream()
              .findFirst()
@@ -37,13 +44,15 @@ public class PublicLibrary {
              }, () -> System.out.println("Book is not available."));
     }
 
+#Here it pulls from the book information and asks the user for the title to check the library
     private Book Information(Scanner scanner) {
         System.out.print("Please enter Book Title: ");
         String title = scanner.nextLine();
 
-        return new Book(title);
+        return Book(title);
     }
 
+#This is the beginning asking for user input such as check in check out and exit
     public void start() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -56,18 +65,21 @@ public class PublicLibrary {
             int choice = scanner.nextInt();
             scanner.nextLine();
 		{
+	#this is defining case one and asking for user input
                 case 1:
-                    System.out.print("Enter Book ID to check out: ");
+                    System.out.print("Enter Book Title to check out: ");
                     id = scanner.nextInt();
                     checkOutBook(id);
                     break;
+	#this is defining case one and asking for user input
                 case 2:
-                    System.out.print("Enter Book ID to check in: ");
+                    System.out.print("Enter Book Title to check in: ");
                     id = scanner.nextInt();
                     checkInBook(id);
                     break;
+	#this is defining case one and asking for user input
                 case 3:
-                    System.out.println("Exiting...");
+                    System.out.println("All done.");
                     return;
             }
         }
