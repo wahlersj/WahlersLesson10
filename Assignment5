@@ -1,4 +1,9 @@
-package net.javaguides.lms;
+#Jacob Wahlers
+#CSC 330 - Lesson 10
+#Assignment 5
+
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
