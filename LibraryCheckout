@@ -5,17 +5,18 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Patron 
+private final String name;
+    private final Book[] books = new Book[3];//you can see I'm limiting them to 3 books
+    private int index = 0;
+
+public class Library 
 {
 	Scanner input = new Scanner(System.in);
 	private String first; 
 	private String last; 
-	int bookCount = 0;	//amount books user has in pocket
 	int books = 0;
 	
-	
-	//constructor to "add new patron" by entering their name. 
-	public Patron(String f, String l)
+	public Library(String f, String l)
 	{
 		first = f; 
 		last = l; 
@@ -31,50 +32,45 @@ public class Patron
 		return first +  " " + last; 
 	}
 
-	public static void CheckOutBook()
-	{
-		System.out.println("Enter book title to be check out: ");
-		Scanner input = new Scanner(System.in);
-		String bookCheckOut = input.next(); 
-		if(Library.BookList.contains(bookCheckOut))
-		{
-			Library.BookList.remove(bookCheckOut);
-			System.out.println("-----" + bookCheckOut + " has been checked out!-----");
-			System.out.println ("-------" + bookCheckOut + " is due in 7 days!-------");
-							
-		}
-		else 
-			System.out.println(bookCheckOut + " is not in the library. Please enter "
-			+ "a different book to be checked out");
-		
-	}
-	
-	public static void CheckInBook()
+
+	public static void CheckingIn()
 	{
 		System.out.println("Enter book title to be checked in: ");
+
 		Scanner input = new Scanner(System.in);
-		String bookCheckIn = input.next(); 
-		if(Library.BookList.contains(bookCheckIn))
+
+		String CheckIn = input.next(); 
+		
+		if(Library.BookList.contains(CheckIn))
 		{
-			Library.BookList.add(bookCheckIn);
-			System.out.println("-----" + bookCheckIn + " has been checked in!-----");	
-							
+			Library.BookList.add(CheckIn);
+
+			System.out.println(CheckIn + " is now checked in.");	
+
+			else 
+
+			System.out.println(CheckOut + " Wrong Title")
+
 		}
-		else 
-			System.out.println(bookCheckIn + " is not in the library. Please enter "
-			+ "a different book to be checked out");
-	}
-	
-	public boolean canBorrow()
+
+	public static void CheckingOut()
 	{
-		if(bookCount <= 3)
+		System.out.println("What book would you like to checkout: ");
+
+		Scanner input = new Scanner(System.in);
+
+		String CheckOut = input.next(); 
+
+		if(Library.BookList.contains(CheckOut))
+		
 		{
-			return true; 
-		} 
-		else 
-		{
-			return false; 
-		}
+		
+			System.out.println(CheckOut + " is now checked out")
+
+			else 
+
+			System.out.println(CheckOut + "Wrong Title");
+		
 	}
 
 }
